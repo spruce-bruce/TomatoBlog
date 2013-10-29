@@ -1,6 +1,17 @@
+# Intellij IDEA #
+.idea/workspace.xml
+.idea/tasks.xml
+*.iws
+
+# Compiled Classes #
 *.class
 
 # Package Files #
 *.jar
 *.war
 *.ear
+
+# Gradle ignore #
+.gradle
+/build
+/out
