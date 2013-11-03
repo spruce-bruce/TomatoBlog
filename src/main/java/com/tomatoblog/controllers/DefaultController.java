@@ -1,5 +1,7 @@
 package com.tomatoblog.controllers;
 
+import com.tomatoblog.dao.JdbcPostDAOImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,9 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class DefaultController {
+    @Autowired
+    JdbcPostDAOImpl postDAO;
+
     @RequestMapping(value="/", method=RequestMethod.GET)
     public String index(ModelMap map){
-        map.addAttribute("hello", "w00");
+        //JdbcPostDAOImpl postDAO = new JdbcPostDAOImpl();
+        int count = postDAO.getPostCount();
+        map.addAttribute("hello", Integer.toString(count));
         return "/index";
     }
     

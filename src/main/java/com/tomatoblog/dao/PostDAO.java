@@ -10,7 +10,7 @@ import com.tomatoblog.domain.Post;
  * To change this template use File | Settings | File Templates.
  */
 public interface PostDAO {
-    public Post getPost();
+    public Post getPost(String slug);
     public void getPosts();
     public void getPosts(int limit);
     public void getPosts(int limit, int offset);

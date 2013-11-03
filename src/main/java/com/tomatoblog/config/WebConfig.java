@@ -1,49 +1,44 @@
 package com.tomatoblog.config;
 
-import org.springframework.context.MessageSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.util.StringUtils;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.ViewResolver;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.i18n.CookieLocaleResolver;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-//import org.springframework.web.servlet.view.JstlView;
 
-// import org.thymeleaf.spring3.SpringTemplateEngine;
-// import org.thymeleaf.spring3.view.ThymeleafViewResolver;
-// import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import org.apache.commons.dbcp.BasicDataSource;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.tomatoblog.controllers"})
+@ComponentScan(basePackages = {"com.tomatoblog.controllers", "com.tomatoblog.dao"})
+@PropertySource({"classpath:db.properties"})
 public class WebConfig extends WebMvcConfigurerAdapter {
-	
-  // @Bean
-  // public ServletContextTemplateResolver templateResolver() {
-  //   ServletContextTemplateResolver resolver = new ServletContextTemplateResolver();
-  //   resolver.setPrefix("/WEB-INF/views/");
-  //   resolver.setSuffix(".html");
-  //   //NB, selecting HTML5 as the template mode.
-  //   resolver.setTemplateMode("HTML5");
-  //   resolver.setCacheable(false);
-  //   return resolver;
 
-  // }
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 
-  // public SpringTemplateEngine templateEngine() {
-  //   SpringTemplateEngine engine = new SpringTemplateEngine();
-  //   engine.setTemplateResolver(templateResolver());
-  //   return engine;
-  // }
+    @Bean
+    public BasicDataSource dataSource(
+            @Value("${jdbc.driver}") String jdbcDriver,
+            @Value("${jdbc.url}") String jdbcUrl,
+            @Value("${jdbc.username}") String jdbcUsername,
+            @Value("${jdbc.password}") String jdbcPassword){
+
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setDriverClassName(jdbcDriver);
+        dataSource.setUrl(jdbcUrl);
+        dataSource.setUsername(jdbcUsername);
+        dataSource.setPassword(jdbcPassword);
+        return dataSource;
+    }
 
 	@Bean
     public ViewResolver viewResolver() {
@@ -54,19 +49,4 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
-	
-	// @Bean
-	// public MessageSource messageSource() {
-
-	// 	ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-	// 	messageSource.setBasenames("classpath:messages/messages", "classpath:messages/validation");
-	// 	// if true, the key of the message will be displayed if the key is not
-	// 	// found, instead of throwing a NoSuchMessageException
-	// 	messageSource.setUseCodeAsDefaultMessage(true);
-	// 	messageSource.setDefaultEncoding("UTF-8");
-	// 	// # -1 : never reload, 0 always reload
-	// 	messageSource.setCacheSeconds(0);
-	// 	return messageSource;
-	// }
-
 }

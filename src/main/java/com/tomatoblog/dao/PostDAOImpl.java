@@ -10,7 +10,7 @@ import com.tomatoblog.domain.Post;
  * To change this template use File | Settings | File Templates.
  */
 public class PostDAOImpl implements PostDAO{
-    public Post getPost(){
+    public Post getPost(String slug){
         return new Post();
     }
 

@@ -3,6 +3,9 @@
 .idea/tasks.xml
 *.iws
 
+# Sensitive Properties #
+src/main/resources/db.properties
+
 # Compiled Classes #
 *.class
 
