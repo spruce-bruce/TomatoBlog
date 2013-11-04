@@ -1,5 +1,8 @@
 package com.tomatoblog.domain;
 
+import javax.persistence.*;
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  * User: aaron
@@ -7,10 +10,22 @@ package com.tomatoblog.domain;
  * Time: 10:00 PM
  * To change this template use File | Settings | File Templates.
  */
+@Entity
+@Table(name="posts")
 public class Post {
+    @Id
+    @Column(name = "slug")
     private String slug;
+
+    @Column(name = "body")
     private String body;
-    private int created;
+
+    @Column(name = "published")
+    private boolean published;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created")
+    private Date created;
 
     public String getSlug() {
         return slug;
@@ -28,11 +43,19 @@ public class Post {
         this.body = body;
     }
 
-    public int getCreated() {
+    public boolean getPublished(){
+        return published;
+    }
+
+    public void setPublished(boolean published){
+        this.published = published;
+    }
+
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(int created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 }
