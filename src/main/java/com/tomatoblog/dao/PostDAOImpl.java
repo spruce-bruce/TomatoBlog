@@ -1,6 +1,9 @@
 package com.tomatoblog.dao;
 
 import com.tomatoblog.domain.Post;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,6 +13,10 @@ import com.tomatoblog.domain.Post;
  * To change this template use File | Settings | File Templates.
  */
 public class PostDAOImpl implements PostDAO{
+
+    @Autowired
+    SessionFactory sessionFactory;
+
     public Post getPost(String slug){
         return new Post();
     }
@@ -27,6 +34,10 @@ public class PostDAOImpl implements PostDAO{
     }
 
     public void save(Post post){
-
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.save(post);
+        session.getTransaction().commit();
+        session.close();
     }
 }
