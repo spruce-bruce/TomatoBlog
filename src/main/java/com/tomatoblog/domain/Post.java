@@ -27,6 +27,10 @@ public class Post {
     @Column(name = "created")
     private Date created;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "publish_date")
+    private Date publishDate;
+
     public String getSlug() {
         return slug;
     }
@@ -43,7 +47,7 @@ public class Post {
         this.body = body;
     }
 
-    public boolean getPublished(){
+    public boolean isPublished() {
         return published;
     }
 
@@ -57,5 +61,13 @@ public class Post {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public Date getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
     }
 }
