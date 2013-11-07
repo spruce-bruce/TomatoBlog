@@ -6,6 +6,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: aaron
@@ -23,16 +26,19 @@ public class PostDAOImpl implements PostDAO{
         return new Post();
     }
 
-    public void getPosts(){
-
+    public List getPosts(){
+        Session session = sessionFactory.openSession();
+        List posts = session.createQuery("from Post").list();
+        session.close();
+        return posts;
     }
 
-    public void getPosts(int limit){
-
+    public List getPosts(int limit){
+        return new ArrayList();
     }
 
-    public void getPosts(int limit, int offset){
-
+    public List getPosts(int limit, int offset){
+        return new ArrayList();
     }
 
     public void save(Post post){

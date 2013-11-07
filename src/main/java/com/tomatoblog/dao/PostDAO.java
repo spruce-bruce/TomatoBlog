@@ -2,6 +2,8 @@ package com.tomatoblog.dao;
 
 import com.tomatoblog.domain.Post;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: aaron
@@ -11,9 +13,9 @@ import com.tomatoblog.domain.Post;
  */
 public interface PostDAO {
     public Post getPost(String slug);
-    public void getPosts();
-    public void getPosts(int limit);
-    public void getPosts(int limit, int offset);
+    public List getPosts();
+    public List getPosts(int limit);
+    public List getPosts(int limit, int offset);
 
     public void save(Post post);
 }
