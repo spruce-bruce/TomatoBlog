@@ -17,6 +17,9 @@ public class Post {
     @Column(name = "slug")
     private String slug;
 
+    @Column(name = "title")
+    private String title;
+
     @Column(name = "body")
     private String body;
 
