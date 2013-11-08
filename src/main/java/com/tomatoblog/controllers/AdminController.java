@@ -1,6 +1,7 @@
 package com.tomatoblog.controllers;
 
 import com.tomatoblog.dao.PostDAOImpl;
+import com.tomatoblog.domain.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,6 +33,8 @@ public class AdminController {
 
     @RequestMapping(value={"/admin/post/add", "/admin/post/edit"})
     public String postForm(ModelMap map){
+        Post post = new Post();
+        map.addAttribute("post", post);
         return "/admin/post/form";
     }
 }
