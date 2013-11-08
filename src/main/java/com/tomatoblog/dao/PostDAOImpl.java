@@ -20,7 +20,7 @@ import java.util.List;
 public class PostDAOImpl implements PostDAO{
 
     @Autowired
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     public Post getPost(String slug){
         return new Post();

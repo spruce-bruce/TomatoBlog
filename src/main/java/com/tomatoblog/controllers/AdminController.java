@@ -1,6 +1,7 @@
 package com.tomatoblog.controllers;
 
 import com.tomatoblog.dao.PostDAOImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +18,12 @@ import java.util.List;
  */
 @Controller
 public class AdminController {
+
+    @Autowired
+    public PostDAOImpl postDao;
+
     @RequestMapping(value="/admin", method= RequestMethod.GET)
     public String index(ModelMap map){
-        PostDAOImpl postDao = new PostDAOImpl();
         List posts = postDao.getPosts();
         map.addAttribute("posts", posts);
 
