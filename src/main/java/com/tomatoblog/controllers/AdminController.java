@@ -29,4 +29,9 @@ public class AdminController {
 
         return "/admin/index";
     }
+
+    @RequestMapping(value={"/admin/post/add", "/admin/post/edit"})
+    public String postForm(ModelMap map){
+        return "/admin/post/form";
+    }
 }
